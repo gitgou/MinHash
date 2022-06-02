@@ -66,7 +66,7 @@ public:
 				//使用set 去重, setShingle 保存文档的 Shingle
 				for(int iIndex = 0; iIndex < 493; ++iIndex)
 				{
-					setShingle.insert(m_Shingle[iIndex]);
+					m_vecShingle[i].insert(m_Shingle[iIndex]);
 				}
 			}
 			fclose(fp);
@@ -87,7 +87,7 @@ public:
 					if(uHashVal < m_vecMinHash[iCount][uCol])
 					{
 						m_vecMinHash[iCount][uCol] = uHashVal;
-						cout << iCount << ", uCol: " << uCol << ", Row: " << ite << ", uHashVal: " << uHashVal << endl;
+						//cout << iCount << ", uCol: " << uCol << ", Row: " << ite << ", uHashVal: " << uHashVal << endl;
 					}
 				} // end of setShingle 
 		}// end of 30 Count
@@ -115,6 +115,11 @@ public:
 	
 	}
 	
+    void ResetMinHash()
+    {
+        m_vecMinHash.clear();
+        m_vecMinHash = std::move(vector<vector<unsigned int > > (REP_TIMES, vector<unsigned int>(COL_NUM, UINT_MAX)));
+    }
 	
 	~MinHash()
 	{
