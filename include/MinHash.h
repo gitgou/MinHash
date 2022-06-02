@@ -65,8 +65,7 @@ public:
 			for(int iIndex = 0; iIndex < 493; ++iIndex)
 			{
 				m_vecShingle[i - 1].insert(m_Shingle[iIndex]);
-				cout << "read shingle, DocNum: " << i << "iIndex"
-					<< endl;
+				//cout << "read shingle, DocNum: " << i << ", iIndex: " << iIndex << ", "<< m_Shingle[iIndex] << endl;
 			}
 			fclose(fp);
 		}
@@ -106,7 +105,7 @@ public:
 				set_intersection(a.begin(),a.end(),b.begin(),b.end(),inserter(inter_ , inter_.begin()));
 				set_union(a.begin(),a.end(),b.begin(),b.end(),inserter(union_ , union_.begin()));
 				m_vecJaccard[i][j] = (float)inter_.size() / union_.size();
-				cout<<inter_.size()<<" inter "<<union_.size()<<" union "<< m_vecJaccard[i][j]<<endl;
+				//cout<<"i: " << i << ", j: " << j << ", inter: " << inter_.size() <<" union: " << union_.size() << "Jaccard: "<< m_vecJaccard[i][j]<<endl;
 			} //end of j
 			
 			//cout<< i << " " << m_vecJaccard[i][i+1] <<endl;
