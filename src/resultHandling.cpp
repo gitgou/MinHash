@@ -58,10 +58,9 @@ void ResultHandling::fnImageDrawing(std::vector< pairBandRadius> vecBandRaduis,
 		/*
 		get data of x-axis and y-axis
 		*/
-        
 		for (int i = 0; i < iJacSimRow; i++) {
 			//for (int j = i; j < iJacSimColumn; j++) {
-                int j = 0;
+				int j = 0;
 				/*
 				get Jaccard Similarity
 				*/
@@ -86,13 +85,13 @@ void ResultHandling::fnImageDrawing(std::vector< pairBandRadius> vecBandRaduis,
 		/*
 		* Plot a line whose name will show up as "Experimental" in the legend.
 		*/
-		plt::scatter(vecJacSimXaxis, vecExpCollProbYaxis,15);
+		plt::scatter("r",vecJacSimXaxis, vecExpCollProbYaxis, 35);
 		//plt::named_plot("Experimental",vecJacSimXaxis, vecExpCollProbYaxis);
 		//plt::plot(vecJacSimXaxis, vecExpCollProbYaxis);
 		/*
 		* Plot a line whose name will show up as "Theoretical" in the legend.
 		*/
-		plt::named_plot("Theoretical", vecJacSimXaxis, vecTheoCollProbYaxis);
+		plt::named_plot("Theoretical", "g",vecJacSimXaxis, vecTheoCollProbYaxis);
 		//plt::plot(vecJacSimXaxis, vecTheoCollProbYaxis);
 		/*
 		* Set x-axis to interval [0,1]
@@ -157,7 +156,7 @@ void ResultHandling::fnResultOutput(std::vector< pairBandRadius> vecBandRaduis,
 			std::to_string(vecBandRaduis[k].second) << std::endl;
 		for (int i = 0; i < iJacSimRow; i++) {
 			//for (int j = i + 1; j < iJacSimColumn; j++) {
-                int j = 0;
+				int j = 0;
 				fTheoYaxis = 1 - pow(1 - pow(vecJacSim[i][j], vecBandRaduis[k].second),
 					vecBandRaduis[k].first);
 				std::cout << "(" << i << "," << j << "):" << "Theoretical Collision Probability:" 
@@ -183,7 +182,7 @@ void ResultHandling::fnResultOutput(std::vector< pairBandRadius> vecBandRaduis,
 */
 void ResultHandling::fnResultMergeImageDrawing(std::vector< pairBandRadius> vecBandRaduis, 
 	std::vector<std::vector<std::vector<float> > > vecLocSensHash, std::vector< std::vector
-	<float>> vecJacSim) {
+	<float> > vecJacSim) {
 	/*
 	capture the size of the vectors
 	*/
@@ -223,7 +222,7 @@ void ResultHandling::fnResultMergeImageDrawing(std::vector< pairBandRadius> vecB
 		*/
 		for (int i = 0; i < iJacSimRow; i++) {
 			//for (int j = i; j < iJacSimColumn; j++) {
-                int j = 0;
+				int j = 0;
 				/*
 				get Jaccard Similarity
 				*/
@@ -244,7 +243,7 @@ void ResultHandling::fnResultMergeImageDrawing(std::vector< pairBandRadius> vecB
 		/*
 		Plot a line whose name will show up as "Experimental" in the legend.
 		*/
-		plt::scatter(vecJacSimXaxis, vecExpCollProbYaxis, 15);
+		plt::scatter(vecJacSimXaxis, vecExpCollProbYaxis, 35);
 		/*
 		Plot a line whose name will show up as "Theoretical" in the legend.
 		*/
@@ -255,7 +254,7 @@ void ResultHandling::fnResultMergeImageDrawing(std::vector< pairBandRadius> vecB
 	/*
 	Set x - axis to interval[0, 1]
 	*/
-	plt::xlim(0, 1);
+	plt::xlim(0., 1.);
 	/*
 	Add graph title
 	*/
