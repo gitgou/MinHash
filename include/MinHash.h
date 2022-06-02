@@ -61,15 +61,12 @@ public:
 			
 			//读取 Shingle 文件
 			fread(m_Shingle, sizeof(unsigned int), 493, fp);
-			for(int i = 0; i < DOC_NUM; ++i)
+			//使用set 去重, setShingle 保存文档的 Shingle
+			for(int iIndex = 0; iIndex < 493; ++iIndex)
 			{
-				//使用set 去重, setShingle 保存文档的 Shingle
-				for(int iIndex = 0; iIndex < 493; ++iIndex)
-				{
-					m_vecShingle[i].insert(m_Shingle[iIndex]);
-					cout << "read shingle, DocNum: " << i << "iIndex"
-						<< endl;
-				}
+				m_vecShingle[i].insert(m_Shingle[iIndex]);
+				cout << "read shingle, DocNum: " << i << "iIndex"
+					<< endl;
 			}
 			fclose(fp);
 		}
