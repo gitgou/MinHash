@@ -64,7 +64,7 @@ public:
 			//使用set 去重, setShingle 保存文档的 Shingle
 			for(int iIndex = 0; iIndex < 493; ++iIndex)
 			{
-				m_vecShingle[i].insert(m_Shingle[iIndex]);
+				m_vecShingle[i - 1].insert(m_Shingle[iIndex]);
 				cout << "read shingle, DocNum: " << i << "iIndex"
 					<< endl;
 			}
