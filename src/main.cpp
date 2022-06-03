@@ -75,7 +75,7 @@ int main()
 	for (int i = 0; i < iMinHash; i++) {
         //计算 MinHash
 		oMinHash.CalMinHash();
-		vecMinHash.push_back(oMinHash.m_vecMinHash);
+		vecMinHash[i] = oMinHash.m_vecMinHash;
         //重置 m_vecMinHash.
         oMinHash.ResetMinHash();
 	}
