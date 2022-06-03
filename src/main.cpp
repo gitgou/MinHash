@@ -28,10 +28,10 @@ void GenerateArticle()
 
 int main()
 {
+	clock_t start, end;
+	start = clock();
 	//生成字符文档 & Shingle 文档    
 	GenerateArticle();
-
-	clock_t start, end;
 
 	//matrix [6,2]
 	std::vector< pairBandRadius> vecBandRadius = { pairBandRadius(2,15),pairBandRadius(3,10),
@@ -101,24 +101,23 @@ int main()
 
 	//Part3: LSH
 	
-	start = clock();
 	for (int i = 0; i < vecBandRadius.size(); i++) {
 		vecLocSensHash[i] = Locality_Sensitive_Hashing(vecMinHash,
 			vecBandRadius[i].first, vecBandRadius[i].second);
 	}
 	end = clock();
-	cout << "Run Time of LSH: " << (double)(end - start) / CLOCKS_PER_SEC << "s" << endl;
 	
 
 	/*
 	Part3: Results Handling
 	*/
 	ResultHandling id = ResultHandling();
+	id.fnResultOutput(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
+	cout << "Run Time of LSH: " << (double)(end - start) / CLOCKS_PER_SEC << "s" << endl;
 	id.fnImageDrawing(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
 	id.fnResultMergeImageDrawing(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
-	id.fnResultOutput(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
 
-	system("pause");
+	//system("pause");
 	return 0;
 
 }

@@ -44,7 +44,7 @@ public:
 		for (int i = 0; i < DOC_NUM; ++i)
 		{
 			_CalSingleColMinHash(m_vecShingle[i], i, randomAB);
-			cout << "minhash of doc "<<i<<endl;
+			//cout << "minhash of doc "<<i<<endl;
 		}//end of 1000 documents	
 
 		return true;
