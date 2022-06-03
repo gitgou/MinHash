@@ -34,12 +34,12 @@ int main()
 	GenerateArticle();
 
 	//matrix [6,2]
-	std::vector< pairBandRadius> vecBandRadius = { pairBandRadius(2,15),pairBandRadius(3,10),
-		pairBandRadius(5,6),pairBandRadius(6,5),pairBandRadius(10,3),pairBandRadius(15,2) };
+	std::vector< pairBandRadius> vecBandRadius = { pairBandRadius(5,4)} ;//,
+		//////////////////pairBandRadius(2,3),pairBandRadius(3,5),pairBandRadius(4,6),pairBandRadius(5,8) };
 
 	//´æ·Å 1000´Î MinHash Value [1000,30,1000]
 	std::vector<std::vector< std::vector<unsigned int> > > vecMinHash(iMinHash, std::vector<
-		std::vector<unsigned int> >(iSignNum, std::vector<unsigned int>(iDocNum, 0)));
+		std::vector<unsigned int> >(20, std::vector<unsigned int>(iDocNum, 0)));
 
 
 	//´æ·Å Local Senstive Hash [6,1000,1000]
