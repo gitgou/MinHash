@@ -74,7 +74,7 @@ public:
 	}
 	
 	
-	void _CalSingleColMinHash(set<unsigned int> setShingle, int uCol)
+	void _CalSingleColMinHash(const set<unsigned int>& setShingle, int uCol)
 	{
 		// 对一列运行30 次
 		for(int iCount = 0; iCount < REP_TIMES; ++iCount)
