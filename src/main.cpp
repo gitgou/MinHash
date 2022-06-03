@@ -19,35 +19,35 @@
 
 void GenerateArticle()
 {
-    ArticleGenerator oArtGenerator;
-    //ç”Ÿæˆæ–‡ä»¶,é»˜è®¤å­˜æ”¾è·¯å¾„ä¸º ./Articles & ./Shingles
-    oArtGenerator.fnArticleGeneration();
-    oArtGenerator.fnShingling();
+	ArticleGenerator oArtGenerator;
+	//Éú³ÉÎÄ¼ş,Ä¬ÈÏ´æ·ÅÂ·¾¶Îª ./Articles & ./Shingles
+	oArtGenerator.fnArticleGeneration();
+	oArtGenerator.fnShingling();
 }
 
 
-int main() 
+int main()
 {
-    //ç”Ÿæˆå­—ç¬¦æ–‡æ¡£ & Shingle æ–‡æ¡£    
-    GenerateArticle();    
+	//Éú³É×Ö·ûÎÄµµ & Shingle ÎÄµµ    
+	GenerateArticle();
 
 	clock_t start, end;
-	
-    //matrix [6,2]
-	std::vector< pairBandRadius> vecBandRadius={ pairBandRadius(2,15),pairBandRadius(3,10),
-		pairBandRadius(5,6),pairBandRadius(6,5),pairBandRadius(10,3),pairBandRadius(15,2)};
-	
-    //å­˜æ”¾ 1000æ¬¡ MinHash Value [1000,30,1000]
-	std::vector<std::vector< std::vector<unsigned int> > > vecMinHash(iMinHash, std::vector< 
-		std::vector<unsigned int> >(iSignNum,std::vector<unsigned int>(iDocNum,0)));
-	    
-	    
-    //å­˜æ”¾ Local Senstive Hash [6,1000,1000]
+
+	//matrix [6,2]
+	std::vector< pairBandRadius> vecBandRadius = { pairBandRadius(2,15),pairBandRadius(3,10),
+		pairBandRadius(5,6),pairBandRadius(6,5),pairBandRadius(10,3),pairBandRadius(15,2) };
+
+	//´æ·Å 1000´Î MinHash Value [1000,30,1000]
+	std::vector<std::vector< std::vector<unsigned int> > > vecMinHash(iMinHash, std::vector<
+		std::vector<unsigned int> >(iSignNum, std::vector<unsigned int>(iDocNum, 0)));
+
+
+	//´æ·Å Local Senstive Hash [6,1000,1000]
 	std::vector<std::vector<std::vector<float> > >vecLocSensHash(vecBandRadius.size(),
-		std::vector< std::vector<float>>(iLocSensHashRow,std::vector<float>(iLocSensHashColumn, 0)));
+		std::vector<std::vector<float>>(iLocSensHashRow, std::vector<float>(iLocSensHashColumn, 0)));
 
 	/* data initialization  */
-    /*
+	/*
 	float fInterval = 1. / (1000 * 999 / 2.);
 	for (int i = 0; i < iJacSimRow; i++) {
 		for (int j = i; j < iJacSimColumn; j++) {
@@ -65,38 +65,60 @@ int main()
 			}
 		}
 	}
-    */    
-	
-    //Part2: Cal  MinHash & JaccardSimilarity
+	*/
+
+	//Part2: Cal  MinHash & JaccardSimilarity
 	//Get 1000 signature matrix:[1000,30,1000]
 	MinHash<UINT_MAX, DOC_NUM> oMinHash;
-    oMinHash.CalJaccardSimilarity();
-	 
+	
+	oMinHash.CalJaccardSimilarity();
+	//for (int i = 0; i < 1; i++) {
+	//for (int i = 0; i < 30; i++) {
 	for (int i = 0; i < iMinHash; i++) {
-        //è®¡ç®— MinHash
+		cout << "finish minhash of doc "<<i<<endl;
+		//¼ÆËã MinHash
 		oMinHash.CalMinHash();
-		vecMinHash[i] = oMinHash.m_vecMinHash;
-        //é‡ç½® m_vecMinHash.
-        oMinHash.ResetMinHash();
+		vecMinHash[i]=oMinHash.m_vecMinHash;
+		//ÖØÖÃ m_vecMinHash.
+		oMinHash.ResetMinHash();
 	}
+	
+
+	/*
+	test vecMinHash
+	*/
+	//for (int i = 0; i < iDocNum; i++) {
+		//cout << "jaccard similary of the first document to docum " << i <<": ";
+		//cout << oMinHash.m_vecJaccard[0][i]<<endl;
+	//	cout << "minhash of the first value(/30) to docum(/1000) " << i <<": ";
+	//	cout << vecMinHash[0][0][i]<<" ";
+	//	cout << oMinHash.m_vecMinHash[0][i] << endl;
+	//}
+	//for (int j = 0; j < 30; j++) {
+	//	cout<< "minhash of the "<<j<<" value(/30) to docum(/1000) " << 0 << ": "<< vecMinHash[0][j][0]<<"; docum(/1000) " << 1 << ": " << vecMinHash[0][j][1]<<endl;
+	//}
+	
 
 	//Part3: LSH
+	
 	start = clock();
 	for (int i = 0; i < vecBandRadius.size(); i++) {
 		vecLocSensHash[i] = Locality_Sensitive_Hashing(vecMinHash,
 			vecBandRadius[i].first, vecBandRadius[i].second);
-	}		
+	}
 	end = clock();
 	cout << "Run Time of LSH: " << (double)(end - start) / CLOCKS_PER_SEC << "s" << endl;
+	
 
 	/*
 	Part3: Results Handling
 	*/
 	ResultHandling id = ResultHandling();
 	id.fnImageDrawing(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
-	//id.fnResultMergeImageDrawing(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
+	id.fnResultMergeImageDrawing(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
 	id.fnResultOutput(vecBandRadius, vecLocSensHash, oMinHash.m_vecJaccard);
 
+	system("pause");
 	return 0;
 
 }

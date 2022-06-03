@@ -17,8 +17,9 @@ vector<vector<float> > Locality_Sensitive_Hashing(std::vector<std::vector<std::v
     A total of 1000 signature matrix iterations
     */
     clock_t start_oneSignMatrix, end_oneSignMatrix;
+    start_oneSignMatrix = clock();
+    //for (int iSignNum = 0; iSignNum < 30; iSignNum++) {
     for (int iSignNum = 0; iSignNum < m_vecMinHash.size(); iSignNum++) {
-        //start_oneSignMatrix = clock();
         Str.clear();
         int i, j, col = 0;
         string CombineBand = "";
@@ -36,7 +37,7 @@ vector<vector<float> > Locality_Sensitive_Hashing(std::vector<std::vector<std::v
         }
 
         int index = 0;
-        int ic, jc, kc = 0;
+        int ic = 0, jc, kc = 0;
         bool ifCollision;
         //caculate collision
         for (ic = 0; ic < MinHashCol - 1; ic++) {
@@ -55,18 +56,40 @@ vector<vector<float> > Locality_Sensitive_Hashing(std::vector<std::vector<std::v
                 }
             }
         }
-        //end_oneSignMatrix = clock();
-        //cout << "Run Time of LSH: " << (double)(end_oneSignMatrix - start_oneSignMatrix) / CLOCKS_PER_SEC << "s" << endl;
+        /*
+        test Collision probability of band and r
+        */
+        //for (int ic = 0; ic < MinHashCol; ic++) {
+        //    cout << "Collision probability of band " << bands << " r " << r << " of the first docum to docum " << ic << ": " << Collision[0][ic] << endl;
+        //}
+        cout << "finish Collision probability of band " << bands << " r " << r << " of times " << iSignNum << endl;
     }
-
+    end_oneSignMatrix = clock();
+    cout << "Run Time of LSH of band " << bands << " r " << r << ": " << (double)(end_oneSignMatrix - start_oneSignMatrix) / CLOCKS_PER_SEC << "s" << endl;
+    /*
+    for (int ic = 0; ic < MinHashCol; ic++) {
+        cout << "Collision probability of band " << bands << " r " << r << " of the first docum to docum " << ic << ": " << Collision[0][ic] << endl;
+     }
+     */
     /*
     calculate the Collision probability
     */
     for (int ic = 0; ic < MinHashCol - 1; ic++) {
         for (int jc = ic + 1; jc < MinHashCol; jc++) {
             Collision[ic][jc] /= m_vecMinHash.size();
+            //Collision[ic][jc] /= 30;
         }
     }
+
+    /*
+    test Collision probability of band and r
+    */
+    /*
+    for (int ic = 0; ic < MinHashCol; ic++) {
+           cout<<"Collision probability of band "<<bands<<" r "<<r<<" of the first docum to docum "<<ic<<": " << Collision[0][ic]<<endl;
+        
+    }
+    */
 	
     return Collision;
 }
@@ -93,7 +116,7 @@ vector<vector<float> > Locality_Sensitive_Hashing_2(std::vector<std::vector<std:
     /*
     A total of 1000 signature matrix iterations
     */
-    clock_t start_oneSignMatrix, end_oneSignMatrix;
+    //clock_t start_oneSignMatrix, end_oneSignMatrix;
     for (int iSignNum = 0; iSignNum < m_vecMinHash.size(); iSignNum++) {
         //start_oneSignMatrix = clock();
         vecBandRadius.clear();
